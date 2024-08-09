@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}">
+    <!-- <meta http-equiv="refresh" content="10"> -->
+    <title>Form</title>
+</head>
+<body>
+    <input type="hidden" name="data_from_db" value="{{db_data}}" id="data_from_db">
+    <header>
+        <span>QuoteSuite</span>
+    </header>
+    <form action="{{ url_for('data', doc_id=document_id) }}" method="post" id="form" onsubmit="return false;">
+        <div class="document">
+            <div class="table_header">
+                <div class="table_header_left">
+                    <div class="document_id">
+                        Document ID: 
+                        <span>{{document_id}}</span>
+                    </div>
+                    <input type="text" name="client_name" id="client_name" placeholder="Client Name">
+                <textarea name="client_description" id="client_description" placeholder="Client Description (Optional)"></textarea>
+                </div>
+                <div class="table_header_right">
+                    <p class="top_date_div">
+                        <input type="text" name="top_date" id="top_date" placeholder="**-**-****">
+                        <input type="button" value="Update!" id="date_update_btn" onclick="updateTopDate(0)" ondblclick="updateTopDate()">
+                    </p>
+                </div>
+                
+            </div>
+
+            <div class="table">
+                <div class="table_title">
+                    <input type="text" name="table_title" id="table_title_input" placeholder="Table Title">
+                </div>
+                <div class="row_heading">
+                        <span>SR NO.</span>
+                        <span>DESCRIPTION</span>
+                        <span>QTY</span>
+                        <span>RATE</span>
+                        <span>AMOUNT</span>
+                </div>
+                <!-- <div class="table_rows">
+                    <div class="row" aria-valuetext="0">
+                        <div class="row_data">
+                            <input type="text" name="srno" id="srno" placeholder="Sr. No.">
+                            <textarea name="description" id="description" placeholder="Description"></textarea>
+                            <input type="text" name="qty" id="qty" placeholder="Qty">
+                            <input type="number" name="rate" id="rate" placeholder="Rate">
+                            <input type="number" name="amount" id="amount" placeholder="Amount" onkeyup="calcTotal()" aria-valuetext="0">
+                        </div>
+                        <div class="controls hidden">
+                            <button id="insert_up_btn">Insert Up</button>
+                            <button id="insert_down_btn">Insert Down</button>
+                            <button id="delete_btn">Delete</button>
+                        </div>
+                    </div>
+                    <div class="row" aria-valuetext="1">
+                        <div class="row_data">
+                            <input type="text" name="srno" id="srno" placeholder="Sr. No.">
+                            <textarea name="description" id="description" placeholder="Description"></textarea>
+                            <input type="text" name="qty" id="qty" placeholder="Qty">
+                            <input type="number" name="rate" id="rate" placeholder="Rate" min="1">
+                            <input type="number" name="amount" id="amount" placeholder="Amount" onkeyup="calcTotal()" aria-valuetext="1">
+                        </div>
+                        <div class="controls hidden">
+                            <button id="insert_up_btn">Insert Up</button>
+                            <button id="insert_down_btn">Insert Down</button>
+                            <button id="delete_btn">Delete</button>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="cli_section">
+                    <div class="cli_area">
+                        <textarea name="cli_textarea" id="cli_textarea" placeholder="Description # Qty # Rate # Amount"></textarea>
+                    </div>
+                    <div class="cli_log">
+                        
+                    </div>
+                    <div class="cli_controls">
+                        <!-- <button class="cli_btn" onclick="cliUpdate()">Update</button> -->
+                    </div>
+                </div>
+                <div class="summary">
+                    <p class="total">TOTAL: Rs <span>0</span></p>
+                    <p class="total_in_words">Rs. </p>
+                </div>
+            </div>
+            <div class="db_controls">
+                <button type="button" id="save_btn" onclick="serializeAllData()">Save Locally</button>
+                <input type="button" value="Upload to DB" id="upload_btn" onclick="upload_to_db()">
+            </div>
+            <div class="document_metadata">
+                <div class="right_div">
+                    <span>Modified: </span>
+                    <span id="modified_date"></span>
+                    <br>
+                    <span>Created: </span>
+                    <span id="created_date"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+<script src="{{url_for('static',filename='new_document.js')}}">
+    // fetch('/data')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //         // Process the received data here
+    //     })
+    //     .catch(error => {
+    //         console.error('Error:', error);
+    //     });
+   
+    
+</script>
+</body>
+</html>

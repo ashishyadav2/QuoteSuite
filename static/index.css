@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Bahnschrift;
+    font-size: 1rem;
+}
+body {
+    background-color: #f5f7f9;
+}
+header {
+    width: 100%;
+    padding: 50px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header span {
+    font-size: 7rem;
+    font-family: "Edwardian Script ITC";
+}
+.document {
+    background-color: white;
+    width: 85%;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 5% auto 10% auto;
+    padding: 5% 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.heading p{
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+.card_header {
+    background-color: #179BAE;
+    padding: 12px 10px;
+    width: 100%;
+    display: flex;
+    margin: 25px 0 0 0;
+    color: #fff;
+    border-radius: 10px;
+}
+.card_header div {
+    text-transform: capitalize;
+}
+.card_header div:first-child {
+    width: 5%;
+}
+.card_header div:nth-child(2) {
+    width: 70%;
+}
+.card_header div:nth-child(3) {
+    width: 12.5%;
+}
+.card_header div:nth-child(4) {
+    width: 12.5%;
+}
+.card_holder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card div:first-child {
+    width: 5%;
+    padding-left: 5px;
+}
+.card a{
+    width: 70%;
+}
+.card {
+    margin: 5px 0 0 0;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+}
+.card div:nth-child(3) {
+    width: 12.5%;
+}
+.card div:nth-child(4) {
+    width: 12.5%;
+}
+.card {
+    display: flex;
+    padding: 10px 10px;
+}
+.card a{
+    color: #179BAE;
+    transition: 0.3s;
+}
+.card a:hover{
+    color: #FF8225;
+}
+.card:nth-child(even) {
+    background-color: #eee;
+}
+.card_holder:nth-child(odd) {
+    background-color: #fff;
+}
+#create_new {
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    background-color: #179BAE;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 25px 0;
+}
+#create_new:hover {
+    background-color: #FF8225;
+}

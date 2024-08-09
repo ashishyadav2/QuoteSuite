@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <!-- <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}"> -->
+    <!-- <meta http-equiv="refresh" content="10"> -->
+    <title>QuoteSuite</title>
+</head>
+<body>
+    <header>
+        <span>QuoteSuite</span>
+    </header>
+    <div class="document">
+        <div class="heading">
+            <p>All documents</p>
+        </div>
+        <div class="card_header">
+            <div>Sr no</div>
+            <div>filename</div>
+            <div>Modified</div>
+            <div>Created</div>
+        </div>
+        <div class="card_holder">
+<!-- 
+            <div class="card">
+                <div id="srno">1.</div>
+                <a href="#">15-Aug-2024</a>
+                <div id="modified_date">14-Aug-2024</div>
+                <div id="created_date">02-Aug-2024</div>
+                <input type="hidden" name="doc_id" value="">
+            </div> -->
+
+        </div>
+        <div class="controls">
+            <a href="/new_document"><button id="create_new">Create New</button></a>
+        </div>      
+    </div>
+    <input type="hidden" name="data_from_db" value="{{all_docs}}" id="data_from_db">
+    <script src="{{url_for('static',filename='index.js')}}">        
+    </script>
+</body>
+</html>
