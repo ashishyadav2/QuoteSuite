@@ -1,0 +1,305 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Bahnschrift;
+    font-size: 1rem;
+}
+body {
+    background-color: #f5f7f9;
+}
+header {
+    width: 100%;
+    padding: 50px 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+header span {
+    font-size: 7rem;
+    font-family: "Edwardian Script ITC";
+}
+
+.document_id {
+    padding: 10px;
+}
+.document {
+    background-color: white;
+    width: 85%;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 5% auto 10% auto;
+    padding: 5% 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.table_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.table_header .table_header_left {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+.table_header .table_header_left input{
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+}
+.table_header .table_header_left input:focus{
+    border: 2px solid #221fca;
+}
+.table_header_right .top_date_div #top_date {
+    padding: 8px 10px;
+    width: 145px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+    text-align: right;
+    background-color: transparent;
+}
+.table_header_right .top_date_div #top_date:focus {
+    border: 2px solid #221fca;    
+}
+.table_header_right .top_date_div #date_update_btn {
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    background-color: green;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.table_header_right .top_date_div #date_update_btn:hover {
+    background-color: black;
+}
+#client_description {
+    resize: none;
+    padding: 8px 10px;
+    height: 150px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+#client_description:focus {
+    border: 2px solid #221fca;    
+}
+.table {
+    width: 100%;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+}
+.table_title input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.table_title input:focus {
+    border: 2px solid #221fca;   
+}
+.row {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 0 0 8px 0;
+    /* background-color: #221fca; */
+}
+.row_focused {
+    /* background-color: #4caf50; */
+    border: 2px solid #4caf50;  
+
+}
+.row_data {
+    display:flex;
+    justify-content: space-between;
+    /* align-items: start; */
+}
+.row_data input {
+    padding: 5px 8px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+}
+.row_heading {
+    display: flex;
+    justify-content: space-between;
+}
+.row_heading span{
+    padding: 5px 8px;
+    text-align: center;
+}
+.row_heading span:nth-child(1){
+    width: 7%;
+}
+.row_heading span:nth-child(2){
+    width: 66%;
+}
+.row_heading span:nth-child(3){
+    width: 7%;
+}
+.row_heading span:nth-child(4){
+    width: 8%;
+}
+.row_heading span:nth-child(5){
+    width: 11%;
+}
+.row_data textarea{
+    resize: none;
+    padding: 5px 8px;
+    height: auto;
+    border: 2px solid #ccc;
+    outline: none;
+    width: 66%;
+    border-radius: 10px;
+}
+.row_data textarea:focus{
+    border: 2px solid #221fca;   
+}
+.row_data input:focus{
+    border: 2px solid #221fca;   
+}
+.row_data #srno{
+    width: 7%;
+    text-align: center;
+}
+.row_data #qty {
+    width: 7%;
+    text-align: center;
+}
+.row_data #rate {
+    width: 8%;
+    text-align: right;
+}
+.row_data #amount {
+    width: 11%;
+    text-align: right;
+}
+.controls {
+    width: 100%;
+    padding: 8px 0;
+    margin: 5px 0;
+    display: flex;
+    border-radius: 10px;
+    justify-content: center;
+    background-color: #eee;
+}
+.controls button{
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    background-color: blue;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0 3px;
+}
+.controls button:hover{
+    background-color: black;
+}
+.hidden {
+    display: none;
+}
+.show {
+    display: flex;
+}
+.summary {
+    width: 100%;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.total{
+    justify-self: flex-end;
+    align-self: flex-end;
+    padding: 8px 10px;
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+.total span{
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+.total_in_words {
+    font-size: 1.15rem;
+}
+.document_metadata {
+    width: 100%;
+    margin: 25px 5px 0 0;
+}
+.document_metadata .right_div {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-end;
+    /* align-items: flex-end; */
+}
+.document_metadata .right_div span{
+    padding: 8px 10px;
+    font-size: 1.1rem;
+}
+.db_controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.db_controls button, #upload_btn{
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    background-color: green;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0 5px;
+}
+.db_controls button:hover, #upload_btn:hover {
+    background-color: black;
+}
+.cli_section {
+    width: 100%;
+}
+.cli_section .cli_area textarea{
+    resize: none;
+    padding: 5px 8px;
+    height: 450px;
+    border: 2px solid #ccc;
+    outline: none;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 1.15rem;
+}
+.cli_section .cli_area  textarea:focus{
+    border: 2px solid #221fca;   
+}
+.cli_controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cli_controls button{
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    background-color: green;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 0 5px;
+}
+.cli_controls button:hover {
+    background-color: black;
+}
