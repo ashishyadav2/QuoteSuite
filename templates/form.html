@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}">
-    <!-- <meta http-equiv="refresh" content="10"> -->
-    <title>Form</title>
+    <title>QuoteSuite</title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" type="image/x-icon">
 </head>
 <body>
     <input type="hidden" name="data_from_db" value="{{db_data}}" id="data_from_db">
@@ -14,6 +14,7 @@
     </header>
     <form action="{{ url_for('data', doc_id=document_id) }}" method="post" id="form" onsubmit="return false;">
         <div class="document">
+            <a href="http://127.0.0.1:5000/data/" class="back_btn_link">&lt; Back</a>
             <div class="table_header">
                 <div class="table_header_left">
                     <div class="document_id">
@@ -43,36 +44,6 @@
                         <span>RATE</span>
                         <span>AMOUNT</span>
                 </div>
-                <!-- <div class="table_rows">
-                    <div class="row" aria-valuetext="0">
-                        <div class="row_data">
-                            <input type="text" name="srno" id="srno" placeholder="Sr. No.">
-                            <textarea name="description" id="description" placeholder="Description"></textarea>
-                            <input type="text" name="qty" id="qty" placeholder="Qty">
-                            <input type="number" name="rate" id="rate" placeholder="Rate">
-                            <input type="number" name="amount" id="amount" placeholder="Amount" onkeyup="calcTotal()" aria-valuetext="0">
-                        </div>
-                        <div class="controls hidden">
-                            <button id="insert_up_btn">Insert Up</button>
-                            <button id="insert_down_btn">Insert Down</button>
-                            <button id="delete_btn">Delete</button>
-                        </div>
-                    </div>
-                    <div class="row" aria-valuetext="1">
-                        <div class="row_data">
-                            <input type="text" name="srno" id="srno" placeholder="Sr. No.">
-                            <textarea name="description" id="description" placeholder="Description"></textarea>
-                            <input type="text" name="qty" id="qty" placeholder="Qty">
-                            <input type="number" name="rate" id="rate" placeholder="Rate" min="1">
-                            <input type="number" name="amount" id="amount" placeholder="Amount" onkeyup="calcTotal()" aria-valuetext="1">
-                        </div>
-                        <div class="controls hidden">
-                            <button id="insert_up_btn">Insert Up</button>
-                            <button id="insert_down_btn">Insert Down</button>
-                            <button id="delete_btn">Delete</button>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="cli_section">
                     <div class="cli_area">
                         <textarea name="cli_textarea" id="cli_textarea" placeholder="Description # Qty # Rate # Amount"></textarea>
@@ -96,26 +67,14 @@
             <div class="document_metadata">
                 <div class="right_div">
                     <span>Modified: </span>
-                    <span id="modified_date">08-Aug-2024</span>
+                    <span id="modified_date"></span>
                     <br>
                     <span>Created: </span>
-                    <span id="created_date">01-Aug-2024</span>
+                    <span id="created_date"></span>
                 </div>
             </div>
         </div>
     </form>
-<script src="{{url_for('static',filename='main.js')}}">
-    // fetch('/data')
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data);
-    //         // Process the received data here
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-   
-    
-</script>
+<script src="{{url_for('static',filename='main.js')}}"></script>
 </body>
 </html>

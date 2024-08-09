@@ -147,7 +147,7 @@ function cliUpdate() {
             totalSpan.textContent = formatAmount(totalAmount);
         }
         const total_in_words = document.querySelector(".total_in_words");
-        total_in_words.textContent = `Rs. ${inWords(totalAmount)} `;
+        total_in_words.textContent = `Rs. ${inWords(totalAmount)} Only`;
         return true;
     }
     return false;
@@ -190,20 +190,12 @@ function inWords (num) {
     return str;
 }
 
-// let saved_data = localStorage.getItem(getDocumentId());
-saved_data = null;
-if(saved_data==null) {
-    genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
-}
-else {
-    populate_data(saved_data,false)
-}
 function populate_data(saved_data,isFromServer){
     if (!isFromServer) {
         // saved_data = localStorage.getItem(getDocumentId());
     }
     if(saved_data==null) {
-        genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
+        // genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
         return
     }
     saved_data = JSON.parse(saved_data);
@@ -333,9 +325,14 @@ function validateLocalFiles() {
     }
     return true;
 }
-// const created_date = document.querySelector("#created_date");
-// const modified_date = document.querySelector("#modified_date");
-// modified_date.textContent = "Modified: "+updateDate();
+
+const created_date = document.querySelector("#created_date");
+const modified_date = document.querySelector("#modified_date");
+const top_date = document.querySelector("#top_date");
+top_date.value = updateDate(0);
+created_date.textContent = top_date.value;
+modified_date.textContent = top_date.value;
+
 function load_from_db() {
     const db_data_element = document.querySelector("#data_from_db");
     db_data = db_data_element.value;
@@ -343,19 +340,28 @@ function load_from_db() {
     db_data = JSON.stringify(test_db_data[0]);
     populate_data(db_data,true);
 }
-// load_from_db();
 function upload_to_db() {
-     if (serializeAllData()==true) {
-         fetch(`/new_document`, {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json'
-             },
-             body: JSON.stringify(GLOBAL_DATA_OBJ)
-         })
-         .then(response => console.log("upload_to_db()"))
-         .then(data => console.log('Success:'))
-         .catch(error => console.error('Error:'));
-
-     }   
-}
+    if (serializeAllData()) {
+      fetch('/new_document', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(GLOBAL_DATA_OBJ)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Data from server:', data);
+        window.location.href = `/data/${data}`;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  }
+  

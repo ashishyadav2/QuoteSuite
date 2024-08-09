@@ -44,7 +44,3 @@ class DBQueryHandler:
     
     def get_last_id(self,query,projection=None):
         return self.collection_obj.find(query,projection).sort({"_id": -1}).limit(1)
-    
-# db = DBQueryHandler()
-# for res in db.retrieve({"_id":"66abbe8245c0e00fc6cc8988"}):
-#     print(res)

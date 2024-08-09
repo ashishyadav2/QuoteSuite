@@ -19,7 +19,21 @@ header span {
     font-size: 7rem;
     font-family: "Edwardian Script ITC";
 }
-
+.back_btn_link {
+    align-self: flex-start;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    color: white;
+    background-color: green;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.back_btn_link:hover {
+    background-color: #FF8225;
+}
 .document_id {
     padding: 10px;
 }

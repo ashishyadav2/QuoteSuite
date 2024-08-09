@@ -1,93 +1,3 @@
-// function unfocusOtherRows(rows,row_index) {
-//     for(let i=0;i<rows.length;i++) {
-//         if(i==row_index) {
-//             continue;
-//         }
-//         rows[i].classList.remove("row_focused");
-//         rows[i].childNodes[3].classList.remove("show");
-//     }
-// }
-// let rowsArr = [];
-
-// const rows =  document.querySelectorAll('.row');
-// for(let i=0;i<rows.length;i++) {
-//     rows[i].addEventListener("click", ()=> {
-//         rows[i].classList.toggle("row_focused");
-//         if(rows[i].classList.contains("row_focused")) {
-//             unfocusOtherRows(rows,i);
-//         }
-//         rows[i].childNodes[3].classList.toggle("show");
-//     });
-// }
-// const controlBtns = document.querySelectorAll(".controls #insert_up_btn");
-
-// function formatRowCode(index) {
-// const rowCode = `<div class="row" aria-valuetext="${index}">
-//                         <div class="row_data">
-//                             <input type="text" name="srno" id="srno" placeholder="Sr. No.">
-//                             <textarea name="description" id="description" placeholder="Description"></textarea>
-//                             <input type="text" name="qty" id="qty" placeholder="Qty">
-//                             <input type="number" name="rate" id="rate" placeholder="Rate">
-//                             <input type="number" name="amount" id="amount" placeholder="Amount">
-//                         </div>
-//                         <div class="controls hidden">
-//                             <button id="insert_up_btn">Insert Up</button>
-//                             <button id="insert_down_btn">Insert Down</button>
-//                             <button id="delete_btn">Delete</button>
-//                         </div>
-//                     </div>`;
-//     return rowCode
-// }
-// for(let i=0;i<controlBtns.length;i++) {
-//     controlBtns[i].addEventListener("click",()=> {
-//         let newRowIndex = parseInt(controlBtns[i].parentElement.parentElement.getAttribute("aria-valuetext"));
-//         console.log(newRowIndex);        
-//         rowsArr.splice(newRowIndex,0,formatRowCode(newRowIndex));
-//         console.log(rowsArr);
-//         // loadRows()
-//         // controlBtns[0].parentElement.parentElement.parentElement.innerHTML+=rowCode;    
-//     });
-// }
-// const dateUpdateBtn = document.querySelector("#date_update_btn");
-// const top_date = document.querySelector("#top_date");
-// dateUpdateBtn.addEventListener("click",updateDate);
-// function loadRows() {
-    //     const table = document.querySelector(".table_rows");
-    //     for(let i=0;i<rowsArr.length;i++){
-        //         table.innerHTML += rowsArr[i]
-        //     }
-        // }
-        // const amountCol = document.querySelectorAll('#amount');
-        // const total = document.querySelector(".total span");
-        // let totalArr = [];
-        // function calcTotal() {
-            //     for(let i=0;i<amountCol.length;i++) {
-                //         let idx = amountCol[i].getAttribute("aria-valuetext");
-                //         let cellValue = amountCol[i].value;
-                //         if(isNaN(cellValue)) {
-                    //             cellValue = 0;
-                    //         }
-                    //         totalArr[parseInt(idx)] = parseInt(cellValue);        
-                    //     }
-                    // }
-                    
-                    // const saveBtn = document.querySelector("#save_btn");
-                    // saveBtn.addEventListener("click",()=>{
-                        //     let totalAmount = 0;
-                        //     for(let j=0;j<totalArr.length;j++) {
-                            //         if(isNaN(totalArr[j])){
-                                //             continue;
-                                //         }
-                                //         else{
-                                    //             totalAmount+=totalArr[j];
-                                    //         }
-                                    //     }
-                                    //     total.textContent = totalAmount;
-                                    // });
-
-
-
-
 var GLOBAL_DATA_OBJ = {
     file_path: null,
     client_name: null,
@@ -237,7 +147,7 @@ function cliUpdate() {
             totalSpan.textContent = formatAmount(totalAmount);
         }
         const total_in_words = document.querySelector(".total_in_words");
-        total_in_words.textContent = `Rs. ${inWords(totalAmount)} `;
+        total_in_words.textContent = `Rs. ${inWords(totalAmount)} Only`;
         return true;
     }
     return false;
@@ -280,19 +190,19 @@ function inWords (num) {
     return str;
 }
 
-let saved_data = localStorage.getItem(getDocumentId());
-if(saved_data==null) {
-    genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
-}
-else {
-    populate_data(saved_data,false)
-}
+// let saved_data = localStorage.getItem(getDocumentId());
+// if(saved_data==null) {
+//     genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
+// }
+// else {
+//     populate_data(saved_data,false)
+// }
 function populate_data(saved_data,isFromServer){
     if (!isFromServer) {
-        saved_data = localStorage.getItem(getDocumentId());
+        // saved_data = localStorage.getItem(getDocumentId());
     }
     if(saved_data==null) {
-        genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
+        // genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
         return
     }
     saved_data = JSON.parse(saved_data);
@@ -318,8 +228,8 @@ function populate_data(saved_data,isFromServer){
 }
 function loadTextAreaData(saved_data,isFromServer) {
     if (isFromServer==true){
-        let saved_data = localStorage.getItem(getDocumentId());
-        saved_data = JSON.parse(saved_data);
+        // let saved_data = localStorage.getItem(getDocumentId());
+        // saved_data = JSON.parse(saved_data);
     }
     let description = saved_data.q_description;
     let finalDescription = [];
@@ -342,8 +252,8 @@ function getDocumentId() {
 function serializeAllData() {        
     if (handleTopDateValidation() && handleClientName() && handleClientDescription() && cliUpdate()&& handleTableTitle() && handleCreatedModifiedDate() && validateLocalFiles() ) {        
         console.log(GLOBAL_DATA_OBJ);
-        localStorage.setItem(getDocumentId(),JSON.stringify(GLOBAL_DATA_OBJ));
-        console.log("Data saved locally");
+        // localStorage.setItem(getDocumentId(),JSON.stringify(GLOBAL_DATA_OBJ));
+        // console.log("Data saved locally");
         return true;
     }
     return false;
@@ -405,11 +315,12 @@ function handleTopDateValidation() {
 function handleCreatedModifiedDate() {
     const created_date = document.querySelector("#created_date");
     const modified_date = document.querySelector("#modified_date");
+    const top_date = document.querySelector("#top_date");
     let isValid = false;
-    let created_date_val = created_date.textContent.split(" ")[1];
-    let modified_date_val = modified_date.textContent.split(" ")[1];
+    let created_date_val = created_date.textContent;
+    let modified_date_val = modified_date.textContent;
     if (created_date_val!=""&&modified_date_val !="") {
-        GLOBAL_DATA_OBJ.date.created = created_date.textContent;
+        GLOBAL_DATA_OBJ.date.created = top_date.value;
         GLOBAL_DATA_OBJ.date.modified = modified_date.textContent;
         isValid = true;
     }
@@ -422,9 +333,6 @@ function validateLocalFiles() {
     }
     return true;
 }
-// const created_date = document.querySelector("#created_date");
-// const modified_date = document.querySelector("#modified_date");
-// modified_date.textContent = "Modified: "+updateDate();
 function load_from_db() {
     const db_data_element = document.querySelector("#data_from_db");
     db_data = db_data_element.value;
@@ -436,23 +344,25 @@ load_from_db();
 function upload_to_db() {
      if (serializeAllData()==true) {
          const document_id = getDocumentId();
-         const document_data = localStorage.getItem(document_id);
          fetch(`/data/${document_id}`, {
              method: 'POST',
              headers: {
                  'Content-Type': 'application/json'
              },
-             body: JSON.stringify(document_data)
+             body: JSON.stringify(GLOBAL_DATA_OBJ)
          })
-         .then(response => console.log("upload_to_db()"))
-         .then(data => console.log('Success:', data))
-         .catch(error => console.error('Error:', error));
-
-     }
-    // populate_data(document_data,false);
-    // const form = document.querySelector("#form");
-    // form.submit();
-    // console.log(document_id);
-    // console.log(document_data);
-    
+         .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response;
+          })
+          .then(data => {
+            console.log("Uploaded to db");
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+         location.reload();
+     }    
 }

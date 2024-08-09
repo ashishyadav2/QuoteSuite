@@ -1,4 +1,3 @@
-
 function get_all_docs() {
     const db_data_element = document.querySelector("#data_from_db");
     db_data = JSON.parse(db_data_element.value);
