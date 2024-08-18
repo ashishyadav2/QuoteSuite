@@ -9,11 +9,42 @@
 </head>
 <body>
     <header>
+        {{result_data}}
         <span>QuoteSuite</span>
     </header>
     <div class="document">
         <div class="heading">
             <p>All documents</p>
+        </div>
+        <div class="search_container">
+            <div class="text_box_container">
+                <input type="text" name="search_box" id="search_box" placeholder="Search...">
+                <button class="action_btn" id="search_btn" onclick="fire_query()">Search</button>
+            </div>
+            <div class="filter_container">
+                <div class="filter_container_left">
+                    <div class="filter_container_left_element">
+                        <span> Client Name: </span>
+                        <input type="text" name="client_name_text_box" id="client_name_text_box">
+                    </div>
+                    <div class="filter_container_left_element">
+                        <span> Description: </span>
+                        <input type="text" name="client_desc_text_box" id="client_desc_text_box">
+                    </div>
+                </div>
+                <div class="filter_container_right">
+                    <div class="filter_container_right_element">
+                        <span> Total: </span>
+                        <input type="number" name="total_start" id="total_start" min="0" placeholder="Min" maxlength="8">
+                        <input type="number" name="total_end" id="total_end" max="10000000" placeholder="Max" maxlength="8">
+                    </div>
+                    <div class="filter_container_right_element">
+                        <span> Date: </span>
+                        <input type="date" name="date_start" id="date_start" min="1994-01-01" max="">
+                        <input type="date" name="date_end" id="date_end" min="1994-01-01" max="">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card_header">
             <div>Sr no</div>
@@ -33,7 +64,7 @@
 
         </div>
         <div class="controls">
-            <a href="/new_document"><button id="create_new">Create New</button></a>
+            <a href="/new_document" target="_blank"><button class="action_btn">Create New</button></a>
         </div>      
     </div>
     <input type="hidden" name="data_from_db" value="{{all_docs}}" id="data_from_db">

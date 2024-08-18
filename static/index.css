@@ -99,7 +99,7 @@ header span {
 .card_holder:nth-child(odd) {
     background-color: #fff;
 }
-#create_new {
+.action_btn {
     padding: 8px 10px;
     border: none;
     outline: none;
@@ -110,6 +110,81 @@ header span {
     transition: 0.3s;
     margin: 25px 0;
 }
-#create_new:hover {
+.action_btn:hover {
     background-color: #FF8225;
+}
+.search_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.text_box_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text_box_container input{
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    outline: none;
+    width: 85%;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+.text_box_container input:focus{
+    border: 2px solid #221fca;
+}
+.filter_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    background-color: #eee;
+    border-radius: 10px;
+}
+.filter_container_left, .filter_container_right {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.filter_container_left_element {
+    width: 100%;
+    margin: 20px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter_container_right_element {
+    width: 100%;
+    margin: 20px 0 0 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.filter_container_right_element span{
+    padding: 0 25px 0 0;
+}
+.filter_container_left_element input{
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    outline: none;
+    width: 80%;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+.filter_container_right_element input {
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+    margin-right: 15px;
+}
+.filter_container_left_element input:focus, .filter_container_right_element input:focus {
+    border: 2px solid #221fca;
 }

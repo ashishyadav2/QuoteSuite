@@ -7,27 +7,27 @@
     <title>QuoteSuite</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" type="image/x-icon">
 </head>
-<body>
+<body onload="load_data_from_db()">
     <input type="hidden" name="data_from_db" value="{{db_data}}" id="data_from_db">
     <header>
-        <span>QuoteSuite Form</span>
+        <span>QuoteSuite</span>
     </header>
     <form action="{{ url_for('data', doc_id=document_id) }}" method="post" id="form" onsubmit="return false;">
         <div class="document">
-            <a href="http://127.0.0.1:5000/data/" class="back_btn_link">&lt; Back</a>
+            <a href="/data/" class="back_btn_link">&lt; Back</a>
             <div class="table_header">
                 <div class="table_header_left">
                     <div class="document_id">
                         Document ID: 
                         <span>{{document_id}}</span>
                     </div>
-                    <input type="text" name="client_name" id="client_name" placeholder="Client Name">
-                <textarea name="client_description" id="client_description" placeholder="Client Description (Optional)"></textarea>
+                    <input type="text" name="client_name" id="client_name" placeholder="Client Name" maxlength="35" onkeyup="validate_client_name()">
+                <textarea name="client_description" id="client_description" placeholder="Client Description (Optional)" maxlength="120"></textarea>
                 </div>
                 <div class="table_header_right">
                     <p class="top_date_div">
-                        <input type="text" name="top_date" id="top_date" placeholder="**-**-****">
-                        <input type="button" value="Update!" id="date_update_btn" onclick="updateTopDate(0)" ondblclick="updateTopDate()">
+                        <input type="text" name="top_date" id="top_date" placeholder="DD-MMM-YYYY" maxlength="12">
+                        <input type="button" value="Update!" id="date_update_btn" onclick="update_top_date_value(0)" ondblclick="update_top_date_value()">
                     </p>
                 </div>
                 
@@ -35,7 +35,7 @@
 
             <div class="table">
                 <div class="table_title">
-                    <input type="text" name="table_title" id="table_title_input" placeholder="Table Title">
+                    <input type="text" name="table_title" id="table_title_input" placeholder="Table Title" maxlength="80">
                 </div>
                 <div class="row_heading">
                         <span>SR NO.</span>
@@ -61,8 +61,7 @@
                 </div>
             </div>
             <div class="db_controls">
-                <button type="button" id="save_btn" onclick="serializeAllData()">Save Locally</button>
-                <input type="button" value="Upload to DB" id="upload_btn" onclick="upload_to_db()">
+                <input type="button" value="Save" id="upload_btn" onclick="upload_to_db()">
             </div>
             <div class="document_metadata">
                 <div class="right_div">
@@ -75,6 +74,16 @@
             </div>
         </div>
     </form>
-<script src="{{url_for('static',filename='main.js')}}"></script>
+    <div class="message_box_container">
+        <div class="message_box">
+            <span></span>
+            <div class="message_content">
+            </div>
+        </div>
+        <div class="time_bar">
+
+        </div>
+    </div>
+<script src="{{url_for('static',filename='form_script.js')}}"></script>
 </body>
 </html>

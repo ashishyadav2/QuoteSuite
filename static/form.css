@@ -317,3 +317,65 @@ header span {
 .cli_controls button:hover {
     background-color: black;
 }
+.message_box_container {
+    width: 30%;
+    height: auto;
+    background-color: #f5f7f9;
+    box-shadow: 0 0 25px 1px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    position: fixed;
+    top: -200px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: flex-start; */
+    /* display: none; */
+    background-color: #FFEBEE;
+    transition: 0.5s;
+}
+.message_box {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+.message_box span{
+    font-size: 2rem;
+}
+#close_btn {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+.message_content{
+    width: 100%;
+    text-align: left;
+    padding: 25px 0;
+    font-size: 1.1rem;
+}
+.show_error, .show_success {
+    top: 25px;
+    transition: 0.5s;
+}
+.show_error span {
+    color: #F44336;
+}
+.show_success span {
+    color: #4caf50;
+}
+.time_bar {
+    width: 0%;
+    height: 10px;
+    background-color: #221fca;
+    transform-origin: left;
+}
+.time_bar_active {
+    animation: animate_width 4s;
+}
+@keyframes animate_width {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}

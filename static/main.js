@@ -10,7 +10,7 @@ var GLOBAL_DATA_OBJ = {
     total: 0
 };                  
 
-function updateDate(mode) {
+function get_current_date(mode) {
     const date = new Date();
     let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
     let year = date.getFullYear();
@@ -28,7 +28,7 @@ function updateDate(mode) {
     let formatedDate = `${day}-${month}-${year}`;
     return formatedDate;
 }
-function formatDate(date) {
+function change_date_format(date) {
     let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"];
     date = date.split("-");
     day = date[0];
@@ -41,118 +41,40 @@ function formatDate(date) {
     let formatedDate = `${day}-${month}-${year}`;
     return formatedDate;
 }
-function updateTopDate(mode) {
+function update_top_date_value(mode) {
     const top_date = document.querySelector("#top_date");
     if(mode==0) {
-        top_date.value = updateDate(0);
+        top_date.value = get_current_date(0);
     }
     else{
-        top_date.value = updateDate();
+        top_date.value = get_current_date();
     }
 }
 
-function validateCliTextarea(cliTextArea) {
-    if(cliTextArea=="") {
-        genAlertAndLog("Text box cannot be empty!")
-    }
-}
 
-function genAlertAndLog(message) {
+function show_alert_and_log(message) {
     console.error(message);
     // window.alert(message);    
 }
 
-function validateCliTextareaAdv(qty,rate,amount,rowNum) {
+function validate_product_row(qty,rate,amount,rowNum) {
     let isValid = true;
     if(isNaN(qty)) {
-        genAlertAndLog(`"Qty column should be a number at row: ${rowNum}!"`);
+        show_alert_and_log(`"Qty column should be a number at row: ${rowNum}!"`);
         isValid = false;
     }
     if(isNaN(rate)) {
-        genAlertAndLog(`"Rate column should be a number at row: ${rowNum}!"`);
+        show_alert_and_log(`"Rate column should be a number at row: ${rowNum}!"`);
         isValid = false;
     }
-    if(isNaN(amount)||amount<0) {
-        genAlertAndLog(`"Amount column should be a number at row: ${rowNum}!"`);
+    if(isNaN(amount)||amount<1) {
+        show_alert_and_log(`"Amount column should be a number at row: ${rowNum}!"`);
         isValid = false;
     }
     return isValid;
 }
-function cliUpdate() {
-    const cliTextAreaElement = document.querySelector("#cli_textarea");
-    const cliTextArea = cliTextAreaElement.value;
-    const modified_date = document.querySelector("#modified_date");
 
-    validateCliTextarea(cliTextArea);
-    const totalSpan = document.querySelector(".total span");
-    
-    const data = cliTextArea.split("\n");
-    let dataArr = [];
-    let tempDataArr = [];
-    let totalAmount = 0;
-    
-    let isValid = false;
-    
-    for(let i=0;i<data.length;i++) {
-        if(data[i]=="") {
-            continue;
-        }
-        
-        let rowData = data[i].split("#");
-        let rowObj = null;
-        for(let j=0;j<rowData.length;j++) {
-            if (rowData.length==4) {
-                const qty= parseFloat(rowData[1].trim());
-                const rate= parseFloat(rowData[2].trim());
-                const amount= parseFloat(rowData[3].trim());
-                if (validateCliTextareaAdv(qty,rate,amount,i+1)) {
-                    isValid = true;
-                    rowObj = {
-                        product: rowData[0].trim(),
-                        qty: qty,
-                        rate: rate,
-                        amount: amount
-                    }                    
-                }
-                else{
-                    isValid = false;
-                    break;
-                }
-            }
-            else {
-                isValid = false;
-                genAlertAndLog(`Unable to parse the data!. There should be 4 columns,received less than 4 or more than 4 columns at row: ${i+1}`);
-                break;                
-            }
-        }
-        if(isValid) {
-            tempDataArr.push(rowObj);
-        }
-        else {
-            break;
-        }
-    }
-    let s = ""
-    if(isValid) {
-        for(let i=0;i<tempDataArr.length;i++) {
-            row = tempDataArr[i];
-            totalAmount+=row.amount;
-                dataArr.push(tempDataArr[i]);
-            }
-        modified_date.textContent = `${updateDate(0)}`;
-        GLOBAL_DATA_OBJ.q_description = dataArr;
-        tempDataArr = [];
-        if(!isNaN(totalAmount)) {
-            GLOBAL_DATA_OBJ.total = totalAmount;
-            totalSpan.textContent = formatAmount(totalAmount);
-        }
-        const total_in_words = document.querySelector(".total_in_words");
-        total_in_words.textContent = `Rs. ${inWords(totalAmount)} Only`;
-        return true;
-    }
-    return false;
-}
-function formatAmount(num) {
+function format_total_amount(num) {
     temp = num.toString().split("");    
     if(temp.length<4) {
         return num;
@@ -176,7 +98,7 @@ function formatAmount(num) {
     }
     return s.reverse().join("");
 }
-function inWords (num) {
+function number_to_words (num) {
     var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
     var b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
     if ((num = num.toString()).length > 9) return 'overflow';
@@ -190,22 +112,22 @@ function inWords (num) {
     return str;
 }
 
-// let saved_data = localStorage.getItem(getDocumentId());
-// if(saved_data==null) {
-//     genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
+// let data_from_db = localStorage.getItem(get_document_id());
+// if(data_from_db==null) {
+//     show_alert_and_log(`Document is not stored locally with document id: ${get_document_id()}`);
 // }
 // else {
-//     populate_data(saved_data,false)
+//     populate_data_into_document(data_from_db,false)
 // }
-function populate_data(saved_data,isFromServer){
+function populate_data_into_document(data_from_db,isFromServer){
     if (!isFromServer) {
-        // saved_data = localStorage.getItem(getDocumentId());
+        // data_from_db = localStorage.getItem(get_document_id());
     }
-    if(saved_data==null) {
-        // genAlertAndLog(`Document is not stored locally with document id: ${getDocumentId()}`);
+    if(data_from_db==null) {
+        // show_alert_and_log(`Document is not stored locally with document id: ${get_document_id()}`);
         return
     }
-    saved_data = JSON.parse(saved_data);
+    data_from_db = JSON.parse(data_from_db);
     const client_name = document.querySelector("#client_name");
     const client_description = document.querySelector("#client_description");
     const top_date = document.querySelector("#top_date");
@@ -216,22 +138,18 @@ function populate_data(saved_data,isFromServer){
     const modified_date = document.querySelector("#modified_date");
     const created_date = document.querySelector("#created_date");
     
-    client_name.value = saved_data.client_name;
-    client_description.value = saved_data.client_description;
-    top_date.value = saved_data.date.created;
-    table_title_input.value = saved_data.file_path.split("-")[3].split(".")[0];
-    cliTextAreaElement.value = loadTextAreaData(saved_data,isFromServer);
-    totalSpan.textContent = formatAmount(saved_data.total);
-    total_in_words.textContent = "Rs. "+inWords(saved_data.total)+ " Only";
-    modified_date.textContent = saved_data.date.modified;
-    created_date.textContent = saved_data.date.created;
+    client_name.value = data_from_db.client_name;
+    client_description.value = data_from_db.client_description;
+    top_date.value = data_from_db.date.created;
+    table_title_input.value = data_from_db.file_path.split("-")[3].split(".")[0];
+    cliTextAreaElement.value = format_textarea_data(data_from_db,isFromServer);
+    totalSpan.textContent = format_total_amount(data_from_db.total);
+    total_in_words.textContent = "Rs. "+number_to_words(data_from_db.total)+ " Only";
+    modified_date.textContent = data_from_db.date.modified;
+    created_date.textContent = data_from_db.date.created;
 }
-function loadTextAreaData(saved_data,isFromServer) {
-    if (isFromServer==true){
-        // let saved_data = localStorage.getItem(getDocumentId());
-        // saved_data = JSON.parse(saved_data);
-    }
-    let description = saved_data.q_description;
+function format_textarea_data(data_from_db) {
+    let description = data_from_db.q_description;
     let finalDescription = [];
     for(let i=0;i< description.length;i++) {
         let rowData = [];
@@ -242,29 +160,28 @@ function loadTextAreaData(saved_data,isFromServer) {
         rowData.push(row.amount);
         finalDescription.push(rowData.join("  #  "));
     }
-    return finalDescription.join("\n");
-    
+    return finalDescription.join("\n"); 
 }
-function getDocumentId() {
+function get_document_id() {
     const document_id = document.querySelector(".document_id span");
     return document_id.textContent;
 }
 function serializeAllData() {        
-    if (handleTopDateValidation() && handleClientName() && handleClientDescription() && cliUpdate()&& handleTableTitle() && handleCreatedModifiedDate() && validateLocalFiles() ) {        
+    if (handle_top_date() && handleClientName() && handleClientDescription() && validate_product_description()&& handle_table_title() && handle_created_modified_date() && validateLocalFiles() ) {        
         console.log(GLOBAL_DATA_OBJ);
-        // localStorage.setItem(getDocumentId(),JSON.stringify(GLOBAL_DATA_OBJ));
+        // localStorage.setItem(get_document_id(),JSON.stringify(GLOBAL_DATA_OBJ));
         // console.log("Data saved locally");
         return true;
     }
     return false;
 }
-setInterval(serializeAllData,350000);
+// setInterval(serializeAllData,350000);
 function handleClientName() {
     const client_name = document.querySelector("#client_name");
     
     let isValid = false;
     if(client_name.value=="") {
-        genAlertAndLog("Client name cannot be empty!");
+        show_alert_and_log("Client name cannot be empty!");
         isValid = false;
     }
     else{
@@ -289,7 +206,7 @@ function handleClientDescription() {
     return isValid;
 }
 
-function handleTableTitle() {
+function handle_table_title() {
     const table_title_input = document.querySelector("#table_title_input");
     const top_date = document.querySelector("#top_date");
     let prefix_date = top_date.value;
@@ -304,15 +221,10 @@ function handleTableTitle() {
     }    
     return isValid;
 }
-function handleTopDateValidation() {
-    const top_date = document.querySelector("#top_date");
-    if(top_date.value==""){
-        genAlertAndLog("Date should not be empty!")
-        return false;
-    }
-    return true;
+function handle_top_date() {
+    return validate_top_date();
 }
-function handleCreatedModifiedDate() {
+function handle_created_modified_date() {
     const created_date = document.querySelector("#created_date");
     const modified_date = document.querySelector("#modified_date");
     const top_date = document.querySelector("#top_date");
@@ -328,22 +240,23 @@ function handleCreatedModifiedDate() {
 }
 function validateLocalFiles() {
     if(localStorage.length>10) {
-        genAlertAndLog("Cannot store more than 10 files locally!");
+        show_alert_and_log("Cannot store more than 10 files locally!");
         return false;
     }
     return true;
 }
-function load_from_db() {
+function load_data_from_db() {
     const db_data_element = document.querySelector("#data_from_db");
     db_data = db_data_element.value;
     test_db_data = JSON.parse(db_data);
     db_data = JSON.stringify(test_db_data[0]);
-    populate_data(db_data,true);
+    populate_data_into_document(db_data,true);
 }
-load_from_db();
+load_data_from_db();
+
 function upload_to_db() {
      if (serializeAllData()==true) {
-         const document_id = getDocumentId();
+         const document_id = get_document_id();
          fetch(`/data/${document_id}`, {
              method: 'POST',
              headers: {
@@ -365,4 +278,200 @@ function upload_to_db() {
           });
          location.reload();
      }    
+}
+
+// ----------------------------------------------------------------------------------------------------
+// GLOBAL ELEMENTS
+
+
+
+// ----------------------------------------------------------------------------------------------------
+// SAVE DOCUMENT WITH CTRL + S
+function save_document_ctrl_plus_s(e) {
+    if (e.ctrlKey && e.key === "s") {
+        e.preventDefault();
+        upload_to_db();
+        console.log("document saved");
+    }
+}
+document.addEventListener('keydown', save_document_ctrl_plus_s);
+
+// ----------------------------------------------------------------------------------------------------
+// CLIENT NAME VALIDATION
+const client_name_element = document.querySelector("#client_name");
+client_name_element.addEventListener('keyup',validate_client_name);
+
+function validate_client_name(){
+    const client_name_element_value = client_name_element.value;
+    let isValid = false;
+    if (client_name_element_value.length>35) {
+        show_alert_and_log("Client name cannot be more 50 characters (spaces included)");
+        isValid = false;
+    }
+    if(client_name_element_value.length<2) {
+        show_alert_and_log("Client name should be atleast 2 characters long");
+        isValid = false;
+    }
+    if(client_name_element_value=="") {
+        show_alert_and_log("Client name should not be empty");
+        isValid = false;
+    }
+    if(isValid==true) {
+        return true;
+    }
+    return isValid;    
+}
+
+// ----------------------------------------------------------------------------------------------------
+// CLIENT DESCRIPTION VALIDATION
+const client_description_element = document.querySelector("#client_description");
+client_description_element.addEventListener('keyup',validate_client_name);
+
+function validate_client_description() {
+    const client_description_value = client_description_element.value;
+    if (client_description_value.length>120) {
+        show_alert_and_log("Client name cannot be more 50 characters (spaces included)");
+        return false;
+    }
+    return true;
+}
+
+// ----------------------------------------------------------------------------------------------------
+// TOP DATE VALIDATION
+const top_date_element = document.querySelector("#top_date");
+top_date_element.addEventListener("focusout",validate_top_date);
+
+
+function validate_top_date() {
+    // validates document top date 
+    // valid date range 1 jan 1994 to current date
+    
+    const top_date_value = top_date_element.value;
+    let isValid = false
+    let months_mapping = {"jan":1,"feb":2,"mar":3,"apr":4,"may":5,"jun":6,"jul":7,"aug":8,"sept":9,"oct":10,"nov":10,"dec":12};
+    date = top_date_value.trim();
+    date = top_date_value.split("-");
+    day = date[0]
+    month = date[1].toLowerCase();
+    year = date[2]
+    month = months_mapping[month];
+    const formated_date_alt = `${year}/${month}/${day}`;
+    let dateObj = new Date(formated_date_alt);
+    if (isNaN(dateObj)){
+        isValid = false;
+    }
+    else{
+        let current_date = get_current_date().split("-");
+        current_date = `${current_date[2]}/${current_date[1]}/${current_date[0]}`;
+        lower_date_limit = new Date(1994, 0, 1); // 01 Jan 1994
+        date1 = new Date(formated_date_alt);
+        upper_date_limit = new Date(current_date);
+        if (date1>upper_date_limit || date1< lower_date_limit) {
+            isValid = false;
+        }
+        else {
+            isValid = true;
+        }
+    }
+    if(isValid==false) {
+        show_alert_and_log("Invalid date!");
+        return false;
+    }
+    return true;
+}
+
+// ----------------------------------------------------------------------------------------------------
+// TABLE TITLE VALIDATION
+const table_title_input = document.querySelector("#table_title_input");
+function validate_table_title() {
+    let prefix_date = top_date_element.value;
+    let isValid = false;
+    if(table_title_input.value=="") {
+        GLOBAL_DATA_OBJ.file_path = `${prefix_date}-${GLOBAL_DATA_OBJ.q_description[0].product}.ash`;
+        isValid = true;
+    }
+    else{
+        GLOBAL_DATA_OBJ.file_path = `${prefix_date}-${table_title_input.value}.ash`;
+        isValid = true;
+    }    
+    if (table_title_input.value.length>80) {
+        isValid = false;
+    }
+    return isValid;
+}
+// ----------------------------------------------------------------------------------------------------
+// PRODUCT DESCRIPTION VALIDATION
+const cliTextAreaElement = document.querySelector("#cli_textarea");
+const cli_textarea_value= cliTextAreaElement.value;
+const modified_date = document.querySelector("#modified_date");
+const totalSpan = document.querySelector(".total span");
+
+function validate_product_description() {
+
+    if(cli_textarea_value=="") {
+        show_alert_and_log("Text box cannot be empty!");
+        return;
+    }
+    
+    const data = cli_textarea_value.split("\n");
+    let dataArr = [];
+    let totalAmount = 0;
+    
+    let isValid = false;
+    
+    for(let i=0;i<data.length;i++) {
+        if(data[i]=="") {
+            continue;
+        }
+        
+        let rowData = data[i].split("#");
+        let rowObj = null;
+        for(let j=0;j<rowData.length;j++) {
+            if (rowData.length==4) {
+                const qty= parseFloat(rowData[1].trim());
+                const rate= parseFloat(rowData[2].trim());
+                const amount= parseFloat(rowData[3].trim());
+                if (validate_product_row(qty,rate,amount,i+1)) {
+                    isValid = true;
+                    rowObj = {
+                        product: rowData[0].trim(),
+                        qty: qty,
+                        rate: rate,
+                        amount: amount
+                    }                    
+                }
+                else{
+                    isValid = false;
+                    break;
+                }
+            }
+            else {
+                isValid = false;
+                show_alert_and_log(`Unable to parse the data!. There should be 4 columns,received less than 4 or more than 4 columns at row: ${i+1}`);
+                break;                
+            }
+        }
+        if(isValid) {
+            dataArr.push(rowObj);
+        }
+        else {
+            break;
+        }
+    }
+    if(isValid) {
+        for(let i=0;i<dataArr.length;i++) {
+            row = dataArr[i];
+            totalAmount+=row.amount;
+            }
+        modified_date.textContent = `${get_current_date(0)}`;
+        GLOBAL_DATA_OBJ.q_description = dataArr;
+        if(!isNaN(totalAmount)) {
+            GLOBAL_DATA_OBJ.total = totalAmount;
+            totalSpan.textContent = format_total_amount(totalAmount);
+        }
+        const total_in_words = document.querySelector(".total_in_words");
+        total_in_words.textContent = `Rs. ${number_to_words(totalAmount)} Only`;
+        return true;
+    }
+    return false;
 }

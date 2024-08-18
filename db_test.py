@@ -44,3 +44,21 @@ class DBQueryHandler:
     
     def get_last_id(self,query,projection=None):
         return self.collection_obj.find(query,projection).sort({"_id": -1}).limit(1)
+
+# class SearchUtility:
+#     def __init__(self) -> None:
+#         self.uri = get_uri()
+#         self.database = get_db()
+#         self.collection_name = get_table()
+#         self.db_obj = ConnectDB(self.uri,self.database)
+#         self.collection_obj = self.db_obj.connect(self.collection_name)
+#         self.search_result = None
+        
+#     def stop(self):
+#         self.db_obj.close_connection()
+        
+#     def search(self,query,projection=None):
+#         self.collection_obj.find(query,projection)
+        
+#     def get_search_results(self):
+#         return self.search_result

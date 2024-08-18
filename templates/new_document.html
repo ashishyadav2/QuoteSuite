@@ -9,50 +9,50 @@
     <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" type="image/x-icon">
 </head>
 
-<body>
+<body onload="load_data_from_db()">
     <input type="hidden" name="data_from_db" value="{{db_data}}" id="data_from_db" onsubmit="return false;">
     <header>
         <span>QuoteSuite</span>
     </header>
+
     <form id="form">
         <div class="document">
+            <a href="/data/" class="back_btn_link">&lt; Back</a>
             <div class="table_header">
                 <div class="table_header_left">
                     <div class="document_id">
-                        Document ID:
+                        Document ID: 
                         <span>{{document_id}}</span>
                     </div>
-                    <input type="text" name="client_name" id="client_name" placeholder="Client Name" required>
-                    <textarea name="client_description" id="client_description"
-                        placeholder="Client Description (Optional)"></textarea>
+                    <input type="text" name="client_name" id="client_name" placeholder="Client Name" maxlength="35" onkeyup="validate_client_name()">
+                <textarea name="client_description" id="client_description" placeholder="Client Description (Optional)" maxlength="120"></textarea>
                 </div>
                 <div class="table_header_right">
                     <p class="top_date_div">
-                        <input type="text" name="top_date" id="top_date" placeholder="**-**-****" required>
-                        <input type="button" value="Update!" id="date_update_btn" onclick="updateTopDate(0)"
-                            ondblclick="updateTopDate()">
+                        <input type="text" name="top_date" id="top_date" placeholder="DD-MMM-YYYY" maxlength="12">
+                        <input type="button" value="Update!" id="date_update_btn" onclick="update_top_date_value(0)" ondblclick="update_top_date_value()">
                     </p>
                 </div>
+                
             </div>
 
             <div class="table">
                 <div class="table_title">
-                    <input type="text" name="table_title" id="table_title_input" placeholder="Table Title">
+                    <input type="text" name="table_title" id="table_title_input" placeholder="Table Title" maxlength="80">
                 </div>
                 <div class="row_heading">
-                    <span>SR NO.</span>
-                    <span>DESCRIPTION</span>
-                    <span>QTY</span>
-                    <span>RATE</span>
-                    <span>AMOUNT</span>
+                        <span>SR NO.</span>
+                        <span>DESCRIPTION</span>
+                        <span>QTY</span>
+                        <span>RATE</span>
+                        <span>AMOUNT</span>
                 </div>
                 <div class="cli_section">
                     <div class="cli_area">
-                        <textarea name="cli_textarea" id="cli_textarea"
-                            placeholder="Description # Qty # Rate # Amount"></textarea>
+                        <textarea name="cli_textarea" id="cli_textarea" placeholder="Description # Qty # Rate # Amount"></textarea>
                     </div>
                     <div class="cli_log">
-
+                        
                     </div>
                     <div class="cli_controls">
                         <!-- <button class="cli_btn" onclick="cliUpdate()">Update</button> -->
@@ -64,20 +64,29 @@
                 </div>
             </div>
             <div class="db_controls">
-                <!-- <button type="button" id="save_btn" onclick="serializeAllData()">Save Locally</button> -->
-                <input type="button" value="Save" id="upload_btn" onclick="upload_to_db()">
+                <input type="button" value="Save" id="upload_btn" onclick="create_new_doc()">
             </div>
             <div class="document_metadata">
                 <div class="right_div">
                     <span>Modified: </span>
-                    <span id="modified_date">08-Aug-2024</span>
+                    <span id="modified_date"></span>
                     <br>
                     <span>Created: </span>
-                    <span id="created_date">01-Aug-2024</span>
+                    <span id="created_date"></span>
                 </div>
             </div>
         </div>
     </form>
-    <script src="{{url_for('static',filename='new_document.js')}}"></script>
+    <div class="message_box_container">
+        <div class="message_box">
+            <span>ERROR!</span>
+            <div class="message_content">
+            </div>
+        </div>
+        <div class="time_bar">
+
+        </div>
+    </div>
+<script src="{{url_for('static',filename='form_script.js')}}"></script>
 </body>
 </html>
