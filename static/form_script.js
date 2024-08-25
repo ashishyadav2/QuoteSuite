@@ -371,7 +371,52 @@ function validate_product_row(qty, rate, amount, rowNum) {
     return isValid;
 }
 
+function format_product_description(){
+    const cliTextAreaElement = document.querySelector("#cli_textarea");
+    const cli_textarea_value = cliTextAreaElement.value;
+    try {
+        let lines = cli_textarea_value.split("\n");
+        for(let i=0;i<lines.length;i++) {
+            lines[i] = lines[i].replaceAll("\t","  #  ");
+        }
+        cliTextAreaElement.value = lines.join("\n");
+    } catch (error) {
+        show_alert_and_log("Unable to format!");
+    }
+}
+function calculate_rate_qty_amount() {
+    format_product_description();
+    const cliTextAreaElement = document.querySelector("#cli_textarea");
+    const cli_textarea_value = cliTextAreaElement.value;
+    try {
+        let lines = cli_textarea_value.split("\n");
+        for(let i=0;i<lines.length;i++) {
+            if (lines[i]==""){
+                continue
+            }
+            row = lines[i].split("#");
+            if (row.length>3){
+                product = row[0].trim();
+                qty = parseInt(row[1].trim());
+                rate = parseInt(row[2].trim());
+                amount = parseInt(row[3].trim());
+                rate = parseFloat(amount/qty).toFixed(2);
+            }
+            else {
+                product = row[0].trim();
+                qty = parseInt(row[1].trim());
+                amount = parseInt(row[2]).trim();
+                rate = parseFloat(amount/qty).toFixed(2);
+            }
+            modified_row = `${product}  #  ${qty}  #  ${rate}  #  ${amount}`;
+            lines[i] = modified_row;
+        }
+        cliTextAreaElement.value = lines.join("\n");
+    } catch (error) {
+        show_alert_and_log("Unable to calculate rate!");
+    }
 
+}
 function validate_product_description() {
     const cliTextAreaElement = document.querySelector("#cli_textarea");
     const cli_textarea_value = cliTextAreaElement.value;
@@ -619,3 +664,4 @@ function save_document_ctrl_plus_s(e) {
     }
 }
 document.addEventListener('keydown', save_document_ctrl_plus_s);
+

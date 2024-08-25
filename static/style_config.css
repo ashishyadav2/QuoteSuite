@@ -1,0 +1,25 @@
+:root {
+    --primary-color: #020122;
+    --secondary-color: #C5283D;
+    --action-color: #0267C1;
+    --success: #609966;
+    --error: #E84545;
+    --warn: #FFD369,
+    --border-radius-small: 5px;
+    --border-radius: 10px;
+    --border-radius-large: 20px;
+    --font-body: "Bahnschrift", sans-serif;
+    --font-heading: "Edwardian Script ITC", 'cursive';
+    --font-decorative: ;
+    --font-size: 1rem;
+    --font-size-m: 1.3rem;
+    --font-size-l: 1.8rem;
+    --font-size-xl: 4rem;
+    --box-shadow: 0px 7px 10px 0px #ccc;
+    --box-shadow-deep: 0px 7px 20px 1px #ccc;
+    --black: #343434;
+    --white: #fff;
+    --bg: #FCF7F8;
+    --border-color: #ddd;
+    --border-size: 2px;
+}

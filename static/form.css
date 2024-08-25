@@ -2,11 +2,11 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: Bahnschrift;
-    font-size: 1rem;
+    font-family: var(--font-body);
+    font-size: var(--font-size);
 }
 body {
-    background-color: #f5f7f9;
+    background-color: var(--bg);
 }
 header {
     width: 100%;
@@ -16,32 +16,32 @@ header {
     align-items: center;
 }
 header span {
-    font-size: 7rem;
-    font-family: "Edwardian Script ITC";
+    font-size: var(--font-size-xl);
+    font-family: var(--font-heading);
 }
 .back_btn_link {
     align-self: flex-start;
     padding: 8px 10px;
     border: none;
     outline: none;
-    border-radius: 10px;
-    color: white;
-    background-color: green;
+    border-radius: var(--border-radius-large);
+    color: var(--white);
+    background-color: var(--action-color);
     cursor: pointer;
     text-decoration: none;
     transition: 0.3s;
 }
 .back_btn_link:hover {
-    background-color: #FF8225;
+    background-color: var(--primary-color);
 }
 .document_id {
     padding: 10px;
 }
 .document {
-    background-color: white;
+    background-color: var(--white);
     width: 85%;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
     margin: 5% auto 10% auto;
     padding: 5% 3%;
     display: flex;
@@ -61,49 +61,49 @@ header span {
 }
 .table_header .table_header_left input{
     padding: 8px 10px;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 .table_header .table_header_left input:focus{
-    border: 2px solid #221fca;
+    border: 2px solid var(--primary-color);
 }
 .table_header_right .top_date_div #top_date {
     padding: 8px 10px;
     width: 145px;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     text-align: right;
     background-color: transparent;
 }
 .table_header_right .top_date_div #top_date:focus {
-    border: 2px solid #221fca;    
+    border: 2px solid var(--primary-color);    
 }
 .table_header_right .top_date_div #date_update_btn {
     padding: 8px 10px;
     border: none;
     outline: none;
-    border-radius: 10px;
-    color: white;
-    background-color: green;
+    border-radius: var(--border-radius-large);
+    color: var(--white);
+    background-color: var(--action-color);
     cursor: pointer;
     transition: 0.3s;
 }
 .table_header_right .top_date_div #date_update_btn:hover {
-    background-color: black;
+    background-color: var(--primary-color); ;
 }
 #client_description {
     resize: none;
     padding: 8px 10px;
     height: 150px;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     margin-top: 5px;
 }
 #client_description:focus {
-    border: 2px solid #221fca;    
+    border: 2px solid var(--primary-color);    
 }
 .table {
     width: 100%;
@@ -114,21 +114,21 @@ header span {
 .table_title input {
     width: 100%;
     padding: 8px 10px;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     margin-bottom: 5px;
 }
 .table_title input:focus {
-    border: 2px solid #221fca;   
+    border: 2px solid var(--primary-color);   
 }
 .row {
     display: flex;
     flex-direction: column;
     padding: 5px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     margin: 0 0 8px 0;
-    /* background-color: #221fca; */
+    /* background-color: var(--primary-color); */
 }
 .row_focused {
     /* background-color: #4caf50; */
@@ -142,9 +142,9 @@ header span {
 }
 .row_data input {
     padding: 5px 8px;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 .row_heading {
     display: flex;
@@ -173,16 +173,16 @@ header span {
     resize: none;
     padding: 5px 8px;
     height: auto;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
     width: 66%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
 }
 .row_data textarea:focus{
-    border: 2px solid #221fca;   
+    border: 2px solid var(--primary-color);   
 }
 .row_data input:focus{
-    border: 2px solid #221fca;   
+    border: 2px solid var(--primary-color);   
 }
 .row_data #srno{
     width: 7%;
@@ -205,23 +205,23 @@ header span {
     padding: 8px 0;
     margin: 5px 0;
     display: flex;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     justify-content: center;
-    background-color: #eee;
+    /* background-color: #eee; */
 }
 .controls button{
     padding: 8px 10px;
     border: none;
     outline: none;
-    border-radius: 10px;
-    color: white;
+    border-radius: var(--border-radius);
+    color: var(--white);
     background-color: blue;
     cursor: pointer;
     transition: 0.3s;
     margin: 0 3px;
 }
 .controls button:hover{
-    background-color: black;
+    background-color: var(--primary-color); ;
 }
 .hidden {
     display: none;
@@ -269,18 +269,18 @@ header span {
     justify-content: center;
 }
 .db_controls button, #upload_btn{
-    padding: 8px 10px;
+    padding: 8px 30px;
     border: none;
     outline: none;
-    border-radius: 10px;
-    color: white;
-    background-color: green;
+    border-radius: var(--border-radius-large);
+    color: var(--white);
+    background-color: var(--action-color);
     cursor: pointer;
     transition: 0.3s;
     margin: 0 5px;
 }
 .db_controls button:hover, #upload_btn:hover {
-    background-color: black;
+    background-color: var(--primary-color); ;
 }
 .cli_section {
     width: 100%;
@@ -289,14 +289,14 @@ header span {
     resize: none;
     padding: 5px 8px;
     height: 450px;
-    border: 2px solid #ccc;
+    border: var(--border-size) solid var(--border-color);
     outline: none;
     width: 100%;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     font-size: 1.15rem;
 }
 .cli_section .cli_area  textarea:focus{
-    border: 2px solid #221fca;   
+    border: 2px solid var(--primary-color);   
 }
 .cli_controls {
     display: flex;
@@ -307,21 +307,21 @@ header span {
     padding: 8px 10px;
     border: none;
     outline: none;
-    border-radius: 10px;
-    color: white;
-    background-color: green;
+    border-radius: var(--border-radius-large);
+    color: var(--white);
+    background-color: var(--action-color);
     cursor: pointer;
     transition: 0.3s;
     margin: 0 5px;
 }
 .cli_controls button:hover {
-    background-color: black;
+    background-color: var(--primary-color); ;
 }
 .message_box_container {
-    width: 30%;
+    width: 20%;
     height: auto;
-    background-color: #f5f7f9;
-    box-shadow: 0 0 25px 1px rgba(0, 0, 0, 0.25);
+    background-color: var(--white);
+    box-shadow: var(--box-shadow-deep);
     z-index: 10;
     position: fixed;
     top: -200px;
@@ -331,8 +331,8 @@ header span {
     justify-content: space-between;
     /* align-items: flex-start; */
     /* display: none; */
-    background-color: #FFEBEE;
     transition: 0.5s;
+    border-radius: var(--border-radius);
 }
 .message_box {
     padding: 25px;
@@ -340,7 +340,7 @@ header span {
     flex-direction: column;
 }
 .message_box span{
-    font-size: 2rem;
+    font-size: var(--font-size-l);
 }
 #close_btn {
     padding: 5px 15px;
@@ -349,7 +349,7 @@ header span {
 .message_content{
     width: 100%;
     text-align: left;
-    padding: 25px 0;
+    padding: 15px 0;
     font-size: 1.1rem;
 }
 .show_error, .show_success {
@@ -357,16 +357,17 @@ header span {
     transition: 0.5s;
 }
 .show_error span {
-    color: #F44336;
+    color: var(--error);
 }
 .show_success span {
-    color: #4caf50;
+    color: var(--success);
 }
 .time_bar {
     width: 0%;
-    height: 10px;
-    background-color: #221fca;
+    height: 7px;
+    background-color: var(--primary-color);
     transform-origin: left;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 .time_bar_active {
     animation: animate_width 4s;

@@ -86,46 +86,61 @@ def handle_new_document():
             return jsonify(doc_id)
         return jsonify("Invalid data format!")
     
+@app.route("/sort_filter",methods=["GET","POST"]) 
+def sort_filter():
+    if request.method == "GET":        
+        return render_template("index.html")
+    
+    if request.method == "POST":
+        db_obj = DBQueryHandler()
+        sort_filter_info = request.get_json()
+        filter = sort_filter_info['sort_by']
+        order = sort_filter_info['order']
+        if filter == "filename":
+            filter = "file_path"
+        elif filter == "created_date":
+            filter = "date.created"
+        else:
+            filter = "date.modified"
+        if order != "asc":
+            order = "desc"
+        projection = {
+                    "_id":1,
+                    "file_path":1,
+                    "date":1                
+                }
+        results = db_obj.sort_results(filter,projection,order)
+        # db_obj.stop()
+        return jsonify(dumps(results))
+    
 @app.route("/search",methods=["GET","POST"]) 
 def search_in_db(): 
     if request.method == "POST":
         search_obj = request.get_json()
         db_obj = DBQueryHandler()
-        # print(datetime.strptime(search_obj["date"]["date_end"],"%Y-%m-%d"))
-        # if search_obj['client_name'] == "":
-        #     client_name_query = {}
-        # else:
-        #     client_name_query = search_obj['client_name'].strip()
-        # if search_obj['client_desc'] == "":
-        #     client_desc_query = {}
-        # else:
-        #     client_desc_query = search_obj['client_desc'].strip()
-        if search_obj['search_text']=="":
-            add_queries = {}
-        else:
+        if search_obj['search_text']!="":
             search_text_query = search_obj['search_text'].strip() 
             add_queries = {
                 "$text": {
                     "$search": search_text_query
                 }
             }
-            
-        # if not (client_name_query and client_desc_query and search_text_query):
-        #     add_queries = {}
-            
-        # query_arr = [client_name_query,client_desc_query,search_text_query]
-        
-        # for text in query_arr:
-        #     add_queries["$text"]
-            
-        # else:
-        #     add_queries = {
-        #         "$text" : {
-        #             "$search": client_name_query,
-        #             "$search": client_desc_query,
-        #             "$search": search_text_query 
-        #         }
-        #     }
+        if search_obj['client_name']!="":
+            search_text_query = search_obj['client_name'].strip() 
+            add_queries = {
+                "$text": {
+                    "$search": search_text_query
+                }
+            }
+        if search_obj['client_name']!="" and search_obj['search_text']!="":
+            client_name_query = search_obj['client_name'].strip() 
+            search_text_query = search_obj['search_text'].strip() 
+            add_queries = {
+                "$text": {
+                    "$search": client_name_query,
+                    "$search": search_text_query,
+                }
+            }
         query = {
     "$and": [
         {

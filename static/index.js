@@ -19,6 +19,34 @@ function convert_date_datatype(date) {
     return final_date
 }
 
+const message_box_container = document.querySelector(".message_box_container");
+const time_bar = document.querySelector(".time_bar");    
+const message_content = document.querySelector(".message_content");
+const message_title = document.querySelector(".message_box span");
+function show_alert_and_log(message, message_class) {
+    message_content.textContent = message;
+    
+    if (message_class!="success") {
+        message_title.textContent = "Error!"
+        message_box_container.classList.add("show_error");
+    }
+    else {
+        message_title.textContent = "Success!"
+        message_box_container.classList.add("show_success");        
+    }
+    time_bar.classList.add("time_bar_active");
+    setTimeout(hide_message_box,4000);
+    
+    console.error(message);
+    // window.alert(message);    
+}
+
+function hide_message_box(){
+    message_box_container.classList.remove("show_success");
+    message_box_container.classList.remove("show_error");
+    time_bar.classList.remove("time_bar_active");
+}
+
 function get_all_docs() {
     const db_data_element = document.querySelector("#data_from_db");
     db_data = JSON.parse(db_data_element.value);
@@ -29,7 +57,7 @@ function get_all_docs() {
         const rowHTML = ` 
                 <div class="card">
                     <div id="srno">${i + 1}</div>
-                    <a target="_blank"  href="${curr_doc._id.$oid}">${curr_doc.file_path}</a>
+                    <a   href="${curr_doc._id.$oid}">${curr_doc.file_path}</a>
                     <div id="modified_date">${convert_date_datatype(curr_doc.date.modified.$date)}</div>
                     <div id="created_date">${convert_date_datatype(curr_doc.date.created.$date)}</div>
                     <input type="hidden" name="doc_id" value="${curr_doc._id.$oid}">
@@ -68,8 +96,7 @@ function validate_date_range() {
     date_start_ = new Date(date_start.value);
     date_end_ = new Date(date_end.value);
     if (date_start_ > date_end_) {
-        console.log("invalid date range");
-
+        show_alert_and_log("Invalid date range!");
         return false;
     }
     if (date_start.value == "") {
@@ -99,7 +126,7 @@ function validate_total_range() {
     total_start_ = parseInt(total_start_)
     total_end_ = parseInt(total_end_)
     if ((total_start_ < 0 || total_end_ > 10000000) || !(total_start_ <= total_end_)) {
-        console.log("invalid total range");
+        show_alert_and_log("Invalid total range!");
         return false;
     }
     SEARCH_QUERY_OBJ.total.total_start = total_start_
@@ -166,7 +193,7 @@ function show_search_results(data) {
         const rowHTML = ` 
                 <div class="card">
                     <div id="srno">${i + 1}</div>
-                    <a target="_blank"  href="${curr_doc._id.$oid}">${curr_doc.file_path}</a>
+                    <a   href="${curr_doc._id.$oid}">${curr_doc.file_path}</a>
                     <div id="modified_date">${convert_date_datatype(curr_doc.date.modified.$date)}</div>
                     <div id="created_date">${convert_date_datatype(curr_doc.date.created.$date)}</div>
                     <input type="hidden" name="doc_id" value="${curr_doc._id.$oid}">
@@ -175,6 +202,53 @@ function show_search_results(data) {
     }
     console.log("data");
 }
+
+const search_box = document.querySelector("#search_box");
+function show_search_filters() {
+    const filter_container = document.querySelector(".filter_container");
+    filter_container.classList.toggle("show_filter");
+}
+search_box.addEventListener('keydown',enter_search_btn)
+function enter_search_btn(e){
+    // e.preventDefault();
+    if (e.key == "Enter") {
+        fire_query()
+    }
+
+}
+
+// ----------------------------------------------------------------------------------------------------
+// SORT FILTERS
+function sort_filter(){
+    const select_filter = document.querySelector("#select_filter").value;
+    const asc_desc_filter = document.querySelector("#asc_desc_filter").value;
+    let SORT_OBJ = {
+        "sort_by": select_filter,
+        "order": asc_desc_filter
+    }
+    fetch(`/sort_filter`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(SORT_OBJ)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not OK');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Sort results", data);            
+            show_search_results(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+
 
 // db.test.find({
 //     $or: [

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='style_config.css')}}">
     <title>QuoteSuite</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" type="image/x-icon">
 </head>
@@ -48,11 +49,12 @@
                     <div class="cli_area">
                         <textarea name="cli_textarea" id="cli_textarea" placeholder="Description # Qty # Rate # Amount"></textarea>
                     </div>
-                    <div class="cli_log">
+                    <!-- <div class="cli_log">
                         
-                    </div>
-                    <div class="cli_controls">
-                        <!-- <button class="cli_btn" onclick="cliUpdate()">Update</button> -->
+                    </div> -->
+                    <div class="cli_controls">  
+                        <button id="cli_format_btn" onclick="format_product_description()">Format</button>
+                        <button id="cli_calc_btn" onclick="calculate_rate_qty_amount()">Fix Numbers</button>
                     </div>
                 </div>
                 <div class="summary">

@@ -42,6 +42,12 @@ class DBQueryHandler:
             return self.collection_obj.find(query,projection)  
         return self.collection_obj.find(query,projection).limit(1)
     
+    def sort_results(self,filter,projection=None,order="asc"):
+        if order != "asc":
+            return self.collection_obj.find({},projection).sort({filter: -1})
+        return self.collection_obj.find({},projection).sort({filter: 1})
+        
+        
     def get_last_id(self,query,projection=None):
         return self.collection_obj.find(query,projection).sort({"_id": -1}).limit(1)
 

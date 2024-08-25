@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='form.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='style_config.css')}}">
     <title>QuoteSuite: New Document</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" type="image/x-icon">
 </head>
@@ -55,7 +56,8 @@
                         
                     </div>
                     <div class="cli_controls">
-                        <!-- <button class="cli_btn" onclick="cliUpdate()">Update</button> -->
+                        <button id="cli_format_btn" onclick="format_product_description()" type="button">Format</button>
+                        <button id="cli_calc_btn" onclick="calculate_rate_qty_amount()" type="button">Fix Numbers</button>
                     </div>
                 </div>
                 <div class="summary">

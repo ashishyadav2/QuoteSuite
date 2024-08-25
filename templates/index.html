@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='style_config.css')}}">
     <title>QuoteSuite</title>
     <link rel="shortcut icon" href="{{url_for('static',filename='favicon.png')}}" type="image/x-icon">
 </head>
@@ -18,7 +19,7 @@
         </div>
         <div class="search_container">
             <div class="text_box_container">
-                <input type="text" name="search_box" id="search_box" placeholder="Search...">
+                <input type="search" name="search_box" id="search_box" placeholder="Search..." onclick="show_search_filters()">
                 <button class="action_btn" id="search_btn" onclick="fire_query()">Search</button>
             </div>
             <div class="filter_container">
@@ -45,6 +46,18 @@
                     </div>
                 </div>
             </div>
+            <div class="sort_filter">
+                <label for="select_filter">Sort By:</label>
+                <select name="select_filter" id="select_filter" onclick="sort_filter()">
+                    <option value="filename" selected>Filename</option>
+                    <option value="created_date">Created Date</option>
+                    <option value="modified_date">Modified Date</option>
+                </select>
+                <select name="asc_desc_filter" id="asc_desc_filter" onclick="sort_filter()">
+                    <option value="asc" selected>Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+            </div>
         </div>
         <div class="card_header">
             <div>Sr no</div>
@@ -64,10 +77,20 @@
 
         </div>
         <div class="controls">
-            <a href="/new_document" target="_blank"><button class="action_btn">Create New</button></a>
+            <a href="/new_document" ><button class="action_btn">Create New</button></a>
         </div>      
     </div>
     <input type="hidden" name="data_from_db" value="{{all_docs}}" id="data_from_db">
+    <div class="message_box_container">
+        <div class="message_box">
+            <span></span>
+            <div class="message_content">
+            </div>
+        </div>
+        <div class="time_bar">
+
+        </div>
+    </div>
     <script src="{{url_for('static',filename='index.js')}}"></script>
 </body>
 </html>
