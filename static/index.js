@@ -192,11 +192,11 @@ function show_search_results(data) {
         curr_doc = db_data[i]
         const rowHTML = ` 
                 <div class="card">
-                    <div id="srno">${i + 1}</div>
-                    <a   href="${curr_doc._id.$oid}">${curr_doc.file_path}</a>
-                    <div id="modified_date">${convert_date_datatype(curr_doc.date.modified.$date)}</div>
-                    <div id="created_date">${convert_date_datatype(curr_doc.date.created.$date)}</div>
-                    <input type="hidden" name="doc_id" value="${curr_doc._id.$oid}">
+                <div id="srno">${i + 1}</div>
+                <a   href="${curr_doc._id.$oid}">${curr_doc.file_path}</a>
+                <div id="modified_date">${convert_date_datatype(curr_doc.date.modified.$date)}</div>
+                <div id="created_date">${convert_date_datatype(curr_doc.date.created.$date)}</div>
+                <input type="hidden" name="doc_id" value="${curr_doc._id.$oid}">
                 </div>`;
         card_holder.innerHTML += rowHTML;
     }
@@ -240,7 +240,7 @@ function sort_filter(){
             return response.json();
         })
         .then(data => {
-            console.log("Sort results", data);            
+            // console.log("Sort results", data);            
             show_search_results(data);
         })
         .catch(error => {

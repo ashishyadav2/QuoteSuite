@@ -113,11 +113,16 @@ def sort_filter():
         # db_obj.stop()
         return jsonify(dumps(results))
     
+@app.route("/analytics",methods=["GET"]) 
+def analytics():
+    return "Analytics Page under construction"
+    
 @app.route("/search",methods=["GET","POST"]) 
 def search_in_db(): 
     if request.method == "POST":
         search_obj = request.get_json()
         db_obj = DBQueryHandler()
+        add_queries = None
         if search_obj['search_text']!="":
             search_text_query = search_obj['search_text'].strip() 
             add_queries = {
@@ -161,7 +166,8 @@ def search_in_db():
         }
     ]
 }
-        query["$and"].append(add_queries)
+        if add_queries:
+            query["$and"].append(add_queries)
         print(query)
         projection = {"_id":1,"file_path":1,"date":1}
         result_data = []

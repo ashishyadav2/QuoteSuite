@@ -394,24 +394,41 @@ function calculate_rate_qty_amount() {
             if (lines[i]==""){
                 continue
             }
-            row = lines[i].split("#");
+            let row = lines[i].split("#");
+            let product = ""
+            let qty = 1
+            let rate = 1
+            let amount = 1
             if (row.length>3){
                 product = row[0].trim();
-                qty = parseInt(row[1].trim());
+                qty = row[1].match(/(\d+)/);
+                if (qty) {
+                    qty = parseInt(qty[0]);
+                }
+                else {
+                    qty = 1;
+                }
                 rate = parseInt(row[2].trim());
                 amount = parseInt(row[3].trim());
                 rate = parseFloat(amount/qty).toFixed(2);
             }
             else {
                 product = row[0].trim();
-                qty = parseInt(row[1].trim());
-                amount = parseInt(row[2]).trim();
+                qty = row[1].match(/(\d+)/);
+                if (qty) {
+                    qty = parseInt(qty[0]);
+                }
+                else {
+                    qty = 1;
+                }
+                amount = parseInt(row[2].trim());
                 rate = parseFloat(amount/qty).toFixed(2);
             }
-            modified_row = `${product}  #  ${qty}  #  ${rate}  #  ${amount}`;
-            lines[i] = modified_row;
+            let modified_row = `${product}  #  ${qty}  #  ${rate}  #  ${amount}`;
+            lines[i] = modified_row;            
         }
         cliTextAreaElement.value = lines.join("\n");
+
     } catch (error) {
         show_alert_and_log("Unable to calculate rate!");
     }
